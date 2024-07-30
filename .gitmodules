@@ -1,0 +1,9 @@
+[submodule "ThirdParty/googletest"]
+	path = ThirdParty/googletest
+	url = git@github.com:google/googletest.git
+[submodule "ThirdParty/rapidjson"]
+	path = ThirdParty/rapidjson
+	url = git@github.com:Tencent/rapidjson.git
+[submodule "thrust"]
+	path = thrust
+	url = git@github.com:NVIDIA/thrust.git
