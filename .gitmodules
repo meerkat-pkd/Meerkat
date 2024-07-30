@@ -7,3 +7,6 @@
 [submodule "thrust"]
 	path = thrust
 	url = git@github.com:NVIDIA/thrust.git
+[submodule "SlabHash"]
+	path = SlabHash
+	url = git@github.com:KevinJudeConcessao/SlabHash.git
