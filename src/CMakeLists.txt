@@ -1,0 +1,5 @@
+set(PageRank_SOURCES PageRank.cu)
+cuda_add_executable(PageRank ${PageRank_SOURCES})
+target_include_directories(PageRank PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include/")
+target_include_directories(PageRank PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thrust/")
+target_include_directories(PageRank PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/cub/")
