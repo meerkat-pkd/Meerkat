@@ -70,62 +70,62 @@ int main(int argc, char *argv[]) {
   std::cout << "," << ElapsedTime;
   std::flush(std::cout);
 
-  // bool IsInsertion = (Op == "0");
-  // uint32_t BatchesN = std::stoi(NumBatches);
+  bool IsInsertion = (Op == "0");
+  uint32_t BatchesN = std::stoi(NumBatches);
 
-  // for (int File = 0; File < BatchesN; ++File) {
-  //   std::FILE *BatchFile = std::fopen(
-  //       std::string(UpdateFile + ".batch." + std::to_string(File)).c_str(),
-  //       "r");
-  //   uint32_t BatchEdgesN;
-  //   std::fscanf(BatchFile, "%d", &BatchEdgesN);
+  for (int File = 0; File < BatchesN; ++File) {
+    std::FILE *BatchFile = std::fopen(
+        std::string(UpdateFile + ".batch." + std::to_string(File)).c_str(),
+        "r");
+    uint32_t BatchEdgesN;
+    std::fscanf(BatchFile, "%d", &BatchEdgesN);
 
-  //   uint32_t *BatchEdgesSrc = new uint32_t[BatchEdgesN];
-  //   uint32_t *BatchEdgesDst = new uint32_t[BatchEdgesN];
-  //   uint32_t Src, Dst;
+    uint32_t *BatchEdgesSrc = new uint32_t[BatchEdgesN];
+    uint32_t *BatchEdgesDst = new uint32_t[BatchEdgesN];
+    uint32_t Src, Dst;
 
-  //   for (uint32_t I = 0; I < BatchEdgesN; ++I) {
-  //     std::fscanf(BatchFile, "%d%d", &Src, &Dst);
-  //     BatchEdgesSrc[I] = Src;
-  //     BatchEdgesDst[I] = Dst;
-  //   }
+    for (uint32_t I = 0; I < BatchEdgesN; ++I) {
+      std::fscanf(BatchFile, "%d%d", &Src, &Dst);
+      BatchEdgesSrc[I] = Src;
+      BatchEdgesDst[I] = Dst;
+    }
 
-  //   uint32_t *BatchEdgesSrcDev;
-  //   uint32_t *BatchEdgesDstDev;
+    uint32_t *BatchEdgesSrcDev;
+    uint32_t *BatchEdgesDstDev;
 
-  //   CHECK_ERROR(cudaMalloc(&BatchEdgesSrcDev, sizeof(uint32_t) * BatchEdgesN));
-  //   CHECK_ERROR(cudaMemcpy(BatchEdgesSrcDev, BatchEdgesSrc,
-  //                          sizeof(uint32_t) * BatchEdgesN,
-  //                          cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMalloc(&BatchEdgesSrcDev, sizeof(uint32_t) * BatchEdgesN));
+    CHECK_ERROR(cudaMemcpy(BatchEdgesSrcDev, BatchEdgesSrc,
+                           sizeof(uint32_t) * BatchEdgesN,
+                           cudaMemcpyHostToDevice));
 
-  //   CHECK_ERROR(cudaMalloc(&BatchEdgesDstDev, sizeof(uint32_t) * BatchEdgesN));
-  //   CHECK_ERROR(cudaMemcpy(BatchEdgesDstDev, BatchEdgesDst,
-  //                          sizeof(uint32_t) * BatchEdgesN,
-  //                          cudaMemcpyHostToDevice));
+    CHECK_ERROR(cudaMalloc(&BatchEdgesDstDev, sizeof(uint32_t) * BatchEdgesN));
+    CHECK_ERROR(cudaMemcpy(BatchEdgesDstDev, BatchEdgesDst,
+                           sizeof(uint32_t) * BatchEdgesN,
+                           cudaMemcpyHostToDevice));
 
-  //   delete[] BatchEdgesSrc;
-  //   delete[] BatchEdgesDst;
+    delete[] BatchEdgesSrc;
+    delete[] BatchEdgesDst;
 
-  //   bool IsInsertion = (Op == "0");
+    bool IsInsertion = (Op == "0");
 
-  //   if (IsInsertion)
-  //     Graph.InsertEdges(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
-  //   else
-  //     Graph.DeleteEdges(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
-  //   cudaDeviceSynchronize();
+    if (IsInsertion)
+      Graph.InsertEdges(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
+    else
+      Graph.DeleteEdges(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
+    cudaDeviceSynchronize();
 
-  //   float ElapsedTime;
-  //   ElapsedTime =
-  //       IsInsertion
-  //           ? B.Incremental(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN)
-  //           : B.Decremental(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
+    float ElapsedTime;
+    ElapsedTime =
+        IsInsertion
+            ? B.Incremental(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN)
+            : B.Decremental(BatchEdgesSrcDev, BatchEdgesDstDev, BatchEdgesN);
 
-  //   CHECK_ERROR(cudaFree(BatchEdgesSrcDev));
-  //   CHECK_ERROR(cudaFree(BatchEdgesDstDev));
+    CHECK_ERROR(cudaFree(BatchEdgesSrcDev));
+    CHECK_ERROR(cudaFree(BatchEdgesDstDev));
 
-  //   std::cout << "," << ElapsedTime;
-  //   std::flush(std::cout);
-  // }
+    std::cout << "," << ElapsedTime;
+    std::flush(std::cout);
+  }
 
   std::cout << std::endl;
   return 0;
