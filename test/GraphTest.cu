@@ -67,13 +67,10 @@ __global__ void CountTombstonesUnweighted(int NumberOfVertices,
   if ((ThreadID - LaneID) >= NumberOfVertices)
     return;
 
-  int Vertex = 0xFFFFFFFF;
   bool ToSearch = false;
 
-  if (ThreadID < NumberOfVertices) {
-    Vertex = ThreadID;
+  if (ThreadID < NumberOfVertices) 
     ToSearch = true;
-  }
 
   uint32_t WorkQueue = 0;
   while ((WorkQueue = __ballot_sync(0xFFFFFFFF, ToSearch)) != 0) {
@@ -131,13 +128,10 @@ __global__ void CountDegreesUnweighted(int NumberOfVertices,
   if ((ThreadID - LaneID) >= NumberOfVertices)
     return;
 
-  int Vertex = 0xFFFFFFFF;
   bool ToSearch = false;
 
-  if (ThreadID < NumberOfVertices) {
-    Vertex = ThreadID;
+  if (ThreadID < NumberOfVertices) 
     ToSearch = true;
-  }
 
   uint32_t WorkQueue = 0;
   while ((WorkQueue = __ballot_sync(0xFFFFFFFF, ToSearch)) != 0) {
@@ -245,13 +239,10 @@ __global__ void CountDegrees(int NumberOfVertices,
   if ((ThreadID - LaneID) >= NumberOfVertices)
     return;
 
-  int Vertex = 0xFFFFFFFF;
   bool ToSearch = false;
 
-  if (ThreadID < NumberOfVertices) {
-    Vertex = ThreadID;
+  if (ThreadID < NumberOfVertices) 
     ToSearch = true;
-  }
 
   uint32_t WorkQueue = 0;
   while ((WorkQueue = __ballot_sync(0xFFFFFFFF, ToSearch)) != 0) {
@@ -304,13 +295,10 @@ CollectEdges(int NumberOfVertices, GraphContextT TheGraphContext,
   if ((ThreadID - LaneID) >= NumberOfVertices)
     return;
 
-  uint32_t Vertex = 0xFFFFFFFFu;
   bool ToSearch = false;
 
-  if (ThreadID < NumberOfVertices) {
-    Vertex = ThreadID;
+  if (ThreadID < NumberOfVertices) 
     ToSearch = true;
-  }
 
   uint32_t WorkQueue = 0;
 
@@ -424,14 +412,11 @@ __global__ void CollectEdges(int NumberOfVertices,
 
   if ((ThreadID - LaneID) >= NumberOfVertices)
     return;
-
-  uint32_t Vertex = 0xFFFFFFFFu;
+  
   bool ToSearch = false;
 
-  if (ThreadID < NumberOfVertices) {
-    Vertex = ThreadID;
+  if (ThreadID < NumberOfVertices) 
     ToSearch = true;
-  }
 
   uint32_t WorkQueue = 0;
 
@@ -696,9 +681,6 @@ TEST_F(GraphTest, DegreeCountTest) {
 };
 
 TEST_F(GraphTest, DegreeCountTestWarpScheduled) {
-  uint32_t ThreadBlockSize = BLOCK_SIZE;
-  uint32_t NumberOfThreadBlocks =
-      (VertexN + ThreadBlockSize - 1) / ThreadBlockSize;
   uint32_t *DegreeCountsDev = nullptr;
 
   CHECK_CUDA_ERROR(cudaMalloc(&DegreeCountsDev, sizeof(uint32_t) * VertexN));
@@ -813,9 +795,6 @@ TEST_F(GraphTest, ElementTest) {
 };
 
 TEST_F(GraphTest, ElementTestWarpScheduled) {
-  uint32_t ThreadBlockSize = BLOCK_SIZE;
-  uint32_t NumberOfThreadBlocks =
-      (VertexN + ThreadBlockSize - 1) / ThreadBlockSize;
   ASSERT_EQ(VertexN, DegreeCounts->size());
 
   std::vector<uint32_t> VertexOffsets(DegreeCounts->size());
@@ -842,7 +821,6 @@ TEST_F(GraphTest, ElementTestWarpScheduled) {
                          sizeof(uint32_t) * VertexOffsets.size(),
                          cudaMemcpyHostToDevice));
 
-  uint32_t *DegreeCountsDev = nullptr;
   cudaEvent_t Start, Stop;
   cudaEventCreate(&Start);
   cudaEventRecord(Start, 0);
