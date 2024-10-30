@@ -8,7 +8,6 @@
 
 template <typename AllocPolicy> struct PageRank {
 private:
-  using Allocator = typename AllocPolicy::DynamicAllocatorT;
   using EdgePolicy = RevUnweightedEdgePolicyT<AllocPolicy>;
 
 public:
