@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
   float DampingFactor = static_cast<float>(std::atof(argv[5]));
   float ErrorMargin = static_cast<float>(std::atof(argv[6]));
 
-  uint32_t MaxIter = 100;
   double LoadFactor = 0.7;
   float ElapsedTime;
 
