@@ -6,8 +6,8 @@ find_package(CUDA 10.0 REQUIRED)
 option(CMAKE_VERBOSE_MAKEFILE ON)
 option(DGTEST "DGTEST" ON)
 
-set(CUDA_NVCC_FLAGS -O3 -std=c++14 -ccbin gcc-10  --expt-extended-lambda --use_fast_math)
-set(CMAKE_CXX_STANDARD 14)
+set(CUDA_NVCC_FLAGS -O3 -std=c++17 -ccbin gcc-10  --expt-extended-lambda --use_fast_math)
+set(CMAKE_CXX_STANDARD 17)
 
 if (CUDA_VERBOSE_PTXAS)
   set(VERBOSE_PTXAS --ptxas-options=-v)
@@ -87,6 +87,9 @@ add_compile_definitions(THRUST_IGNORE_CUB_VERSION_CHECK)
 include_directories(SlabHash/src)
 include_directories(SlabHash/SlabAlloc/src)
 include_directories(ThirdParty/rapidjson/include)
+
+set(GOOGLETEST_VERSION 0.0.0) # Enables GoogleTest compilation
+
 include_directories(ThirdParty/googletest/googletest)
 include_directories(ThirdParty/googletest/googletest/include)
 add_subdirectory(ThirdParty/googletest/googletest)
