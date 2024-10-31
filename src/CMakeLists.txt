@@ -16,8 +16,8 @@ target_include_directories(SSSP PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include/
 target_include_directories(SSSP PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thrust/")
 target_include_directories(SSSP PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/cub/")
 
-# set(TriangleCounting_SOURCES TriangleCounting.cu)
-# cuda_add_executable(TriangleCounting ${TriangleCounting_SOURCES})
-# target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include/")
-# target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thrust/")
-# target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/cub/")
+set(TriangleCounting_SOURCES TC.cu)
+cuda_add_executable(TriangleCounting ${TriangleCounting_SOURCES})
+target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include/")
+target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../thrust/")
+target_include_directories(TriangleCounting PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/cub/")
